@@ -97,6 +97,14 @@ BITSET QInt::decToBin(string decInt) {
 	return result._data;
 }
 
+/* === Cac operator === */
+//operator=
+QInt& QInt::operator = (const QInt& qInt) {
+	this->_data = qInt._data;
+	return *this;
+}
+
+
 //Ham huy
 QInt::~QInt() {
 }

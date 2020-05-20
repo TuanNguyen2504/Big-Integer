@@ -8,6 +8,7 @@ int main(int argc, char* argv[]) {
 	cout << "Nhap so QInt: ";
 	cin >> myInt;
 	cout << "bin: " << myInt << endl;
+
 	system("pause");
 	return 0;
 }

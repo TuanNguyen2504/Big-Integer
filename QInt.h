@@ -36,6 +36,11 @@ public:
 
 	/* === Cac ham convert === */
 	BITSET decToBin(string decInt);
+	//string binToHex();
+
+	/* === Cac operator === */
+	//operator=
+	QInt& operator = (const QInt& qInt);
 
 	/* === NHOM HAM HO TRO === */
 	string divStrByTwo(const string& decInt);
