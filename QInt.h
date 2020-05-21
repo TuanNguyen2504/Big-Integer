@@ -6,6 +6,7 @@
 #include <string>
 #include <Windows.h>
 #include <bitset>
+#include <map>
 
 //bieu dien so QInt bao nhieu byte 16 byte = 128 bit 
 #define N_BYTE 16
@@ -29,22 +30,28 @@ public:
 
 	/* === Cac ham nhap xuat so QInt === */
 	friend istream& operator >> (istream& is, QInt& myInt);
-	friend ostream& operator << (ostream& os, const QInt& myInt);
+	friend ostream& operator << (ostream& os, QInt myInt);
 
 	/* === Cac ham GET, SET === */
 	int getSize() const;
+	BITSET getData() const;
 
 	/* === Cac ham convert === */
 	BITSET decToBin(string decInt);
-	//string binToHex();
+	string binToHex(const BITSET& bin);
 
 	/* === Cac operator === */
 	//operator=
 	QInt& operator = (const QInt& qInt);
 
 	/* === NHOM HAM HO TRO === */
+	// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
+	string reduceBitSet(const BITSET& bin);
+	//ham chia 1 chuoi cho 2
 	string divStrByTwo(const string& decInt);
+	//ham chuyen day nhi phan sang bu 2
 	BITSET complementTwo(BITSET bin);
+
 	//ham huy
 	~QInt();
 };

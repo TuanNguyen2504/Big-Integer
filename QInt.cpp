@@ -24,13 +24,8 @@ istream& operator >> (istream& is, QInt& myInt) {
 	return is;
 }
 
-ostream& operator << (ostream& os, const QInt& myInt) {
-	string bitsetToString = "";
-	//chuyen sang chuoi string
-	bitsetToString = myInt._data.to_string<char, char_traits<char>, allocator<char> >();
-	//tim vi tri cuoi cung cua bit 1
-	short filnalPosOneBit = bitsetToString.find_first_of('1');
-	os << bitsetToString.substr(filnalPosOneBit, bitsetToString.length());
+ostream& operator << (ostream& os, QInt myInt) {
+	os << myInt.reduceBitSet(myInt._data);
 	return os;
 }
 
@@ -38,8 +33,21 @@ ostream& operator << (ostream& os, const QInt& myInt) {
 int QInt::getSize() const {
 	return this->_data.size();
 };
-
+BITSET QInt::getData() const {
+	return this->_data;
+}
 /* === NHOM HAM HO TRO === */
+// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
+string QInt::reduceBitSet(const BITSET& bin) {
+	string bitsetToString = "";
+	//chuyen sang chuoi string
+	bitsetToString = bin.to_string<char, char_traits<char>, allocator<char> >();
+	//tim vi tri cuoi cung cua bit 1
+	short filnalPosOneBit = bitsetToString.find_first_of('1');
+	if (filnalPosOneBit == string::npos) return "0";
+	return bitsetToString.substr(filnalPosOneBit, bitsetToString.length());
+}
+
 //Ham chia mot chuoi so cho 2
 string QInt::divStrByTwo(const string& decInt) {
 	string result = "";
@@ -54,6 +62,7 @@ string QInt::divStrByTwo(const string& decInt) {
 
 	return result;
 }
+
 // Ham chuyen nhi phan sang bu 2
 BITSET QInt::complementTwo(BITSET bin) {
 	//dao chuoi
@@ -73,7 +82,7 @@ BITSET QInt::complementTwo(BITSET bin) {
 }
 
 /* === NHOM HAM COVERT === */
-//Ham chuyen chuoi so thap phan sang nhi phan
+//Ham chuyen chuoi so he 10 sang 2
 BITSET QInt::decToBin(string decInt) {
 	bool sign = false; //true -, false 
 	string bin = "";
@@ -97,6 +106,37 @@ BITSET QInt::decToBin(string decInt) {
 	return result._data;
 }
 
+//Ham chuyen chuoi so he 2 sang 16
+string QInt::binToHex(const BITSET& bin) {
+	string result = "";
+	// day bit da duoc rut gon
+	string bits = QInt::reduceBitSet(bin);
+	// them vao cho du bo block 4 bits (vd: 11 -> 0011)
+	while (bits.length() % 4 != 0){
+		bits.insert(bits.begin(), '0');
+	}
+	//tach them tung bo
+	for (int i = 0; i < bits.length(); i += 4) {
+		string temp = bits.substr(i, i + 4);
+		if (temp == "0000") result.push_back('0');
+		else if (temp == "0001") result.push_back('1');
+		else if (temp == "0010") result.push_back('2');
+		else if (temp == "0011") result.push_back('3');
+		else if (temp == "0100") result.push_back('4');
+		else if (temp == "0101") result.push_back('5');
+		else if (temp == "0110") result.push_back('6');
+		else if (temp == "0111") result.push_back('7');
+		else if (temp == "1000") result.push_back('8');
+		else if (temp == "1001") result.push_back('9');
+		else if (temp == "1010") result.push_back('A');
+		else if (temp == "1011") result.push_back('B');
+		else if (temp == "1100") result.push_back('C');
+		else if (temp == "1101") result.push_back('D');
+		else if (temp == "1110") result.push_back('E');
+		else result.push_back('F');
+	}
+	return result;
+}
 /* === Cac operator === */
 //operator=
 QInt& QInt::operator = (const QInt& qInt) {
