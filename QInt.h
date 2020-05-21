@@ -35,6 +35,7 @@ public:
 	/* === Cac ham GET, SET === */
 	int getSize() const;
 	BITSET getData() const;
+	void setBit(const BITSET& bits);
 
 	/* === Cac ham convert === */
 	//Ham chuyen chuoi so he 10 sang 2
@@ -49,6 +50,10 @@ public:
 	/* === Cac operator === */
 	//operator=
 	QInt& operator = (const QInt& qInt);
+	//phep dich trai k bit
+	QInt operator << (int k) const;
+	//phep dich phai so hoc k bit
+	QInt operator >> (int k) const;
 
 	/* === NHOM HAM HO TRO === */
 	// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )

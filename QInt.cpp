@@ -36,6 +36,10 @@ int QInt::getSize() const {
 BITSET QInt::getData() const {
 	return this->_data;
 }
+void QInt::setBit(const BITSET& bits) {
+	this->_data = bits;
+}
+
 /* === NHOM HAM HO TRO === */
 // ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
 string QInt::reduceBitSet(const BITSET& bin) {
@@ -209,6 +213,23 @@ string QInt::decToHex() {
 QInt& QInt::operator = (const QInt& qInt) {
 	this->_data = qInt._data;
 	return *this;
+}
+
+//phep dich trai k bits
+QInt QInt::operator<<(int k) const {
+	if (k <= 0) return *this;
+	QInt result;
+	result._data = this->_data << k;
+	return result;
+}
+
+//phep dich phai so hoc k bits
+QInt QInt::operator >> (int k) const {
+	if (k <= 0) return *this;
+	QInt result;
+	result._data = this->_data >> k;
+	result._data[N_BIT - 1] = this->_data[N_BIT - 1];
+	return result;
 }
 
 
