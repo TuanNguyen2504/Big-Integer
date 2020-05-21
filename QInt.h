@@ -37,9 +37,15 @@ public:
 	BITSET getData() const;
 
 	/* === Cac ham convert === */
+	//Ham chuyen chuoi so he 10 sang 2
 	BITSET decToBin(string decInt);
+	//Ham chuyen chuoi so he 2 sang 16
 	string binToHex(const BITSET& bin);
+	//Ham chuyen chuoi so he 16 sang 2
 	BITSET hexToBin(const string& hex);
+	//Ham chuyen chuoi so he QInt sang 16
+	string decToHex();
+
 	/* === Cac operator === */
 	//operator=
 	QInt& operator = (const QInt& qInt);

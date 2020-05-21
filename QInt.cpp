@@ -198,6 +198,12 @@ BITSET QInt::hexToBin(const string& hex) {
 	BITSET result(bin);
 	return result;
 }
+
+//Ham chuyen chuoi so he 10 sang 16
+string QInt::decToHex() {
+	return this->binToHex(this->_data);
+}
+
 /* === Cac operator === */
 //operator=
 QInt& QInt::operator = (const QInt& qInt) {
