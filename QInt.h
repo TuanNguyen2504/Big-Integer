@@ -54,6 +54,8 @@ public:
 	QInt operator << (int k) const;
 	//phep dich phai so hoc k bit
 	QInt operator >> (int k) const;
+	//operator+
+	QInt operator+(const QInt& a);
 
 	/* === NHOM HAM HO TRO === */
 	// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )

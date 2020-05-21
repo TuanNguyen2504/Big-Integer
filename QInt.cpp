@@ -232,7 +232,40 @@ QInt QInt::operator >> (int k) const {
 	return result;
 }
 
+//operator +
+QInt QInt::operator+(const QInt& a) {
+	QInt result;
+	bool bitSave = 0;
 
+	for (int i = 0; i < N_BIT; ++i){
+		int sum = this->_data[i] + a._data[i] + bitSave;
+		if (sum == 2) {
+			result._data.set(i, 0);
+			bitSave = 1;
+		}
+		else if (sum >= 2) {
+			result._data.set(i, 1);
+			bitSave = 1;
+		}
+		else{
+			result._data.set(i, sum);
+			bitSave = 0;
+		}
+	}
+
+	return result;
+}
+
+//operator -
+QInt QInt::operator-(const QInt& a) {
+	//neu a la so duong thi doi sang dang bu 2
+	if (a._data.test(N_BIT - 1) == true) return *this + a;
+	//ngc lai thi chuyen a thanh so am
+	QInt temp;
+	temp._data = QInt::complementTwo(a._data);
+
+	return *this + temp;
+}
 //Ham huy
 QInt::~QInt() {
 }
