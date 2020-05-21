@@ -39,7 +39,7 @@ public:
 	/* === Cac ham convert === */
 	BITSET decToBin(string decInt);
 	string binToHex(const BITSET& bin);
-
+	BITSET hexToBin(const string& hex);
 	/* === Cac operator === */
 	//operator=
 	QInt& operator = (const QInt& qInt);

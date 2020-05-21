@@ -117,7 +117,7 @@ string QInt::binToHex(const BITSET& bin) {
 	}
 	//tach them tung bo
 	for (int i = 0; i < bits.length(); i += 4) {
-		string temp = bits.substr(i, i + 4);
+		string temp = bits.substr(i, 4);
 		if (temp == "0000") result.push_back('0');
 		else if (temp == "0001") result.push_back('1');
 		else if (temp == "0010") result.push_back('2');
@@ -135,6 +135,67 @@ string QInt::binToHex(const BITSET& bin) {
 		else if (temp == "1110") result.push_back('E');
 		else result.push_back('F');
 	}
+	return result;
+}
+
+//Ham chuyen chuoi so he 16 sang 2
+BITSET QInt::hexToBin(const string& hex) {
+	string bin = "";
+	for (int i = 0; i < hex.length(); ++i) {
+		switch (hex[i]) {
+		case '0':
+			bin += "0000";
+			break;
+		case '1':
+			bin += "0001";
+			break;
+		case '2':
+			bin += "0010";
+			break;
+		case '3':
+			bin += "0011";
+			break;
+		case '4':
+			bin += "0100";
+			break;
+		case '5':
+			bin += "0101";
+			break;
+		case '6':
+			bin += "0110";
+			break;
+		case '7':
+			bin += "0111";
+			break;
+		case '8':
+			bin += "1000";
+			break;
+		case '9':
+			bin += "1001";
+			break;
+		case 'A': case 'a':
+			bin += "1010";
+			break;
+		case 'B':
+			bin += "1011";
+			break;
+		case 'C': case 'c':
+			bin += "1100";
+			break;
+		case 'D': case 'd':
+			bin += "1101";
+			break;
+		case 'E': case 'e':	
+			bin += "1110";
+			break;
+		case 'F': case 'f':
+			bin += "1111";
+			break;
+		default:
+			break;
+		}
+	}
+	BITSET result(bin);
 	return result;
 }
 /* === Cac operator === */

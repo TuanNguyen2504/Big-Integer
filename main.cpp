@@ -8,7 +8,10 @@ int main(int argc, char* argv[]) {
 	cout << "nhap so QInt: ";
 	cin >> myInt;
 	cout << "bin: " << myInt << endl;
-	cout << "hex: " << myInt.binToHex(myInt.getData()) << endl;
+	cout << "data: " << myInt.getData() << endl;
+	string hex = myInt.binToHex(myInt.getData());
+	cout << "hex: " << hex << endl;
+	cout << "hex to bin: " << myInt.reduceBitSet(myInt.hexToBin(hex)) << endl;
 	system("pause");
 	return 0;
 }
