@@ -20,7 +20,7 @@ QInt::QInt(const string& bin) {
 }
 
 /* === Cac ham nhap xuat so QInt === */
-istream& operator >> (istream& is, QInt& myInt) {
+istream& operator>> (istream& is, QInt& myInt) {
 	string decInt;
 	getline(is, decInt);
 	BITSET bin = myInt.decToBin(decInt);
@@ -28,7 +28,7 @@ istream& operator >> (istream& is, QInt& myInt) {
 	return is;
 }
 
-ostream& operator << (ostream& os, QInt myInt) {
+ostream& operator<< (ostream& os, QInt myInt) {
 	os << myInt.reduceBitSet(myInt._data);
 	return os;
 }
@@ -214,13 +214,13 @@ string QInt::decToHex() {
 
 /* === Cac operator === */
 //operator=
-QInt& QInt::operator = (const QInt& qInt) {
+QInt& QInt::operator= (const QInt& qInt) {
 	this->_data = qInt._data;
 	return *this;
 }
 
 //phep dich trai k bits
-QInt QInt::operator<<(int k) const {
+QInt QInt::operator<< (int k) const {
 	if (k <= 0) return *this;
 	QInt result;
 	result._data = this->_data << k;
@@ -228,7 +228,7 @@ QInt QInt::operator<<(int k) const {
 }
 
 //phep dich phai so hoc k bits
-QInt QInt::operator >> (int k) const {
+QInt QInt::operator>> (int k) const {
 	if (k <= 0) return *this;
 	QInt result;
 	result._data = this->_data >> k;
@@ -237,7 +237,7 @@ QInt QInt::operator >> (int k) const {
 }
 
 //operator +
-QInt QInt::operator+(const QInt& a) {
+QInt QInt::operator+ (const QInt& a) {
 	QInt result;
 	bool bitSave = 0;
 
@@ -261,11 +261,22 @@ QInt QInt::operator+(const QInt& a) {
 }
 
 //operator -
-QInt QInt::operator-(const QInt& a) {
+QInt QInt::operator- (const QInt& a) {
 	QInt temp(a);
 	//doi dau cho a
 	temp.setBit(QInt::complementTwo(temp._data));
 	return *this + temp;
+}
+
+QInt QInt::operator* (const QInt& a) {
+	QInt result;
+	for (int i = 0; i < N_BIT; ++i) {
+		if (a._data[i] == 1) {
+			result = result + (*this);
+		}
+		(*this) = (*this) << 1;
+	}
+	return result;
 }
 
 //Ham huy

@@ -114,10 +114,20 @@ bool mainProcess(const string& input, const string& output) {
 
 //HAM MAIN()
 int main(int argc, char* argv[]) {
+<<<<<<< HEAD
 	string input = "input.txt";
 	string output = "output.txt";
 	mainProcess(input, output);
 	//mainProcess(argv[1], argv[2]);
+=======
+	QInt a, b;
+	cin >> a;
+	cin >> b;
+	cout << "a: " << a << endl;
+	cout << "b: " << b << endl;
+	cout << "a - b: " << a - b << endl;
+	cout << "a * b: " << a * b << endl;
+>>>>>>> 924fe10d999a7702167a964dc884be2c3a8d6358
 	system("pause");
 	return 0;
 }

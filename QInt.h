@@ -51,15 +51,17 @@ public:
 
 	/* === Cac operator === */
 	//operator=
-	QInt& operator = (const QInt& qInt);
+	QInt& operator= (const QInt& qInt);
 	//phep dich trai k bit
-	QInt operator << (int k) const;
+	QInt operator<< (int k) const;
 	//phep dich phai so hoc k bit
-	QInt operator >> (int k) const;
+	QInt operator>> (int k) const;
 	//operator+
-	QInt operator+(const QInt& a);
+	QInt operator+ (const QInt& a);
 	//operator-
-	QInt operator-(const QInt& a);
+	QInt operator- (const QInt& a);
+	//operator*
+	QInt operator* (const QInt& a);
 
 	/* === NHOM HAM HO TRO === */
 	// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
