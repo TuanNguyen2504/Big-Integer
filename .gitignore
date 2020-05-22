@@ -6,3 +6,5 @@ Project01_BigInteger.vcxproj.filters
 Project01_BigInteger.vcxproj.user
 Debug
 Release
+input.txt
+output.txt
