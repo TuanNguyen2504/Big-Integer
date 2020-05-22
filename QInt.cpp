@@ -5,6 +5,10 @@ QInt::QInt() {
 	this->_data.reset();
 }
 
+QInt::QInt(const QInt& qi)
+{
+	this->_data = qi._data;
+}
 //khoi tao tu mot chuoi nhi phan
 QInt::QInt(const string& bin) {
 	int n = bin.length();
@@ -258,14 +262,12 @@ QInt QInt::operator+(const QInt& a) {
 
 //operator -
 QInt QInt::operator-(const QInt& a) {
-	//neu a la so duong thi doi sang dang bu 2
-	if (a._data.test(N_BIT - 1) == true) return *this + a;
-	//ngc lai thi chuyen a thanh so am
-	QInt temp;
-	temp._data = QInt::complementTwo(a._data);
-
+	QInt temp(a);
+	//doi dau cho a
+	temp.setBit(QInt::complementTwo(temp._data));
 	return *this + temp;
 }
+
 //Ham huy
 QInt::~QInt() {
 }

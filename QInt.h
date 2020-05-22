@@ -27,6 +27,8 @@ public:
 	QInt();
 	//khoi tao tu mot chuoi nhi phan
 	QInt(const string& bin);
+	//ham tao sao chep
+	QInt(const QInt& qi);
 
 	/* === Cac ham nhap xuat so QInt === */
 	friend istream& operator >> (istream& is, QInt& myInt);
@@ -56,6 +58,8 @@ public:
 	QInt operator >> (int k) const;
 	//operator+
 	QInt operator+(const QInt& a);
+	//operator-
+	QInt operator-(const QInt& a);
 
 	/* === NHOM HAM HO TRO === */
 	// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
