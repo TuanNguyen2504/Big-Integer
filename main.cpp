@@ -10,6 +10,7 @@ int main(int argc, char* argv[]) {
 	cout << "a: " << a << endl;
 	cout << "b: " << b << endl;
 	cout << "a - b: " << a - b << endl;
+	cout << "a * b: " << a * b << endl;
 	system("pause");
 	return 0;
 }
