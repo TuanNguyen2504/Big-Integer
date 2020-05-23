@@ -5,18 +5,29 @@ QInt::QInt() {
 	this->_data.reset();
 }
 
-QInt::QInt(const QInt& qi)
-{
+//ham tao sao chep
+QInt::QInt(const QInt& qi){
 	this->_data = qi._data;
 }
-//khoi tao tu mot chuoi nhi phan
-QInt::QInt(const string& bin) {
-	int n = bin.length();
-	if (n > N_BIT) n = N_BIT;
-	for (int i = 0; i < n ; ++i) {
-		if(bin[n - i - 1] == '1')
-			this->_data.set(i);
+
+//khoi tao tu mot chuoi 2, 10, 16
+QInt::QInt(const string& data, const string& base) {
+	if (base == BASE_2) {
+		int n = data.length();
+		if (n > N_BIT) n = N_BIT;
+		for (int i = 0; i < n; ++i) {
+			if (data[n - i - 1] == '1')
+				this->_data.set(i);
+		}
 	}
+	else if (base == BASE_10) {
+		BITSET bin = QInt::decToBin(data);
+		this->_data = bin;
+	}
+	else if(base == BASE_16) {
+		BITSET bin = QInt::hexToBin(data);
+		this->_data = bin;
+	}	
 }
 
 /* === Cac ham nhap xuat so QInt === */
@@ -90,6 +101,7 @@ BITSET QInt::complementTwo(BITSET bin) {
 }
 
 /* === NHOM HAM COVERT === */
+
 //Ham chuyen chuoi so he 10 sang 2
 BITSET QInt::decToBin(string decInt) {
 	bool sign = false; //true -, false 
@@ -106,7 +118,7 @@ BITSET QInt::decToBin(string decInt) {
 	}
 	//dao nguoc chuoi bit
 	reverse(bin.begin(), bin.end());
-	QInt result(bin);
+	QInt result(bin, BASE_2);
 	//neu so am, chuyen dang bu 2
 	if (sign) 
 		return this->complementTwo(result._data);

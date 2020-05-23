@@ -4,10 +4,6 @@
 #include <vector>
 using namespace std;
 
-#define BASE_2 "2"
-#define BASE_10 "10"
-#define BASE_16 "16"
-
 //ham kiem tra ky tu phai he co so
 bool isBase(const string& data) {
 	return (data == BASE_2 || data == BASE_10 || data == BASE_16);
@@ -31,15 +27,27 @@ vector<string> tokenData(const string& data) {
 }
 
 //ham chuyen doi giua cac he co so (DANG LAM)
-string baseConverter(const string& base1, const string& base2, const string& data) {
+string baseConverter(const string& base1, const string& base2, string data) {
 	string result = "";
 	//truong hop base1 = base2 -> khong lam gi
 	if (base1 == base2)
 		return data;
 	//he 2 -> he khac
 	if (base1 == BASE_2) {
-		//2 -> 10
-		
+		QInt qi(data, BASE_2);
+		//2 -> 10 (chua co ham)
+		if (base2 == BASE_10) {
+			//return qi.binToDec();
+			return "";
+		}
+		// 2 -> 16
+		else {
+			return qi.binToHex(qi.getData());
+		}		
+	}
+	else if (base1 == BASE_10) {
+		//10 -> 2
+		QInt qi;
 	}
 	return result;
 }
@@ -104,7 +112,7 @@ bool mainProcess(const string& input, const string& output) {
 		}
 
 		//xuat output ra file
-		out << outputData << endl;
+		cout << outputData << endl;
 	}
 
 	in.close();
@@ -114,20 +122,10 @@ bool mainProcess(const string& input, const string& output) {
 
 //HAM MAIN()
 int main(int argc, char* argv[]) {
-<<<<<<< HEAD
 	string input = "input.txt";
 	string output = "output.txt";
 	mainProcess(input, output);
 	//mainProcess(argv[1], argv[2]);
-=======
-	QInt a, b;
-	cin >> a;
-	cin >> b;
-	cout << "a: " << a << endl;
-	cout << "b: " << b << endl;
-	cout << "a - b: " << a - b << endl;
-	cout << "a * b: " << a * b << endl;
->>>>>>> 924fe10d999a7702167a964dc884be2c3a8d6358
 	system("pause");
 	return 0;
 }

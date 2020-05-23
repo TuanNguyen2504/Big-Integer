@@ -12,6 +12,10 @@
 #define N_BYTE 16
 #define N_BIT N_BYTE*8
 #define BITSET bitset<N_BIT>
+#define BASE_2 "2"
+#define BASE_10 "10"
+#define BASE_16 "16"
+
 using namespace std;
 
 class QInt
@@ -25,8 +29,8 @@ private:
 public:
 	/* === Cac ham khoi tao so QInt === */
 	QInt();
-	//khoi tao tu mot chuoi nhi phan
-	QInt(const string& bin);
+	//khoi tao tu mot chuoi 2, 10, 16
+	QInt(const string& bin, const string& base);
 	//ham tao sao chep
 	QInt(const QInt& qi);
 
