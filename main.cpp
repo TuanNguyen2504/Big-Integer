@@ -26,30 +26,51 @@ vector<string> tokenData(const string& data) {
 	return result;
 }
 
-//ham chuyen doi giua cac he co so (DANG LAM)
+//ham chuyen doi giua cac he co so
 string baseConverter(const string& base1, const string& base2, string data) {
-	string result = "";
 	//truong hop base1 = base2 -> khong lam gi
-	if (base1 == base2)
+	if (base1 == base2) {
+		if (base1 == BASE_2) {
+			//xu ly case: 2->2 data = 0101 -> res: 101
+			BITSET bin(data);
+			QInt qi;
+			return qi.reduceBitSet(bin);
+		}
 		return data;
+	}
+	
+	//khoi tao QInt
+	QInt qi(data, base1);
 	//he 2 -> he khac
 	if (base1 == BASE_2) {
-		QInt qi(data, BASE_2);
 		//2 -> 10 (chua co ham)
 		if (base2 == BASE_10) {
 			//return qi.binToDec();
 			return "";
 		}
 		// 2 -> 16
-		else {
-			return qi.binToHex(qi.getData());
-		}		
+		else
+			return qi.binToHex(qi.getData());		
 	}
 	else if (base1 == BASE_10) {
 		//10 -> 2
-		QInt qi;
+		if (base2 == BASE_2) 
+			return qi.reduceBitSet(qi.getData());	
+		//10 -> 16
+		else
+			return qi.decToHex();
 	}
-	return result;
+	else if (base1 == BASE_16) {
+		//16 -> 2
+		if (base2 == BASE_2) 
+			return qi.reduceBitSet(qi.hexToBin(data));
+		//16 -> 10 (chua co ham)
+		else {
+			//return qi.hexToDec(data);
+			return "";
+		}
+	}
+	return "";
 }
 
 //ham tinh toan toan tu 1 ngoi ~, ror, rol (DANG LAM)
@@ -66,6 +87,7 @@ string binaryOperatorsConverter(const string& base, const string& num1, const st
 
 //ham xu ly chinh, se duoc viet lai o ham main sau
 bool mainProcess(const string& input, const string& output) {
+	int count = 0;
 	ifstream in(input);
 	ofstream out(output);
 
@@ -112,9 +134,10 @@ bool mainProcess(const string& input, const string& output) {
 		}
 
 		//xuat output ra file
-		cout << outputData << endl;
+		if (outputData != "") ++count;
+		out << outputData << endl;
 	}
-
+	cout << "so cau da lam: " << count << endl;
 	in.close();
 	out.close();
 	return 1;
@@ -124,8 +147,8 @@ bool mainProcess(const string& input, const string& output) {
 int main(int argc, char* argv[]) {
 	string input = "input.txt";
 	string output = "output.txt";
-	mainProcess(input, output);
-	//mainProcess(argv[1], argv[2]);
+	//mainProcess(input, output);
+	mainProcess(argv[1], argv[2]);
 	system("pause");
 	return 0;
 }
