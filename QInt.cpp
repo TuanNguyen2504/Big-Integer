@@ -40,6 +40,7 @@ istream& operator>> (istream& is, QInt& myInt) {
 }
 
 ostream& operator<< (ostream& os, QInt myInt) {
+	//os << myInt.binToDec();
 	os << myInt.reduceBitSet(myInt._data);
 	return os;
 }

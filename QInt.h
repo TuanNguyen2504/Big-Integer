@@ -52,7 +52,6 @@ public:
 	BITSET hexToBin(const string& hex);
 	//Ham chuyen chuoi so he QInt sang 16
 	string decToHex();
-
 	/* === Cac operator === */
 	//operator=
 	QInt& operator= (const QInt& qInt);

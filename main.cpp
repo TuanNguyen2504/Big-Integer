@@ -2,6 +2,7 @@
 #include "QInt.h"
 #include <fstream>
 #include <vector>
+#include <sstream>
 using namespace std;
 
 //ham kiem tra ky tu phai he co so
@@ -26,7 +27,20 @@ vector<string> tokenData(const string& data) {
 	return result;
 }
 
-//ham chuyen doi giua cac he co so
+//ham chuyen doi QInt sang 1 he bat ky (dung de xuat so QInt ra 1 dinh dang base) (DANG DOI HAM 2->10)
+string qintToBase(QInt qi, const string& base) {
+	if (base == BASE_2)
+		return qi.reduceBitSet(qi.getData());
+	else if (base == BASE_10) {
+		//return qi.binToDec();
+		return "";
+	}
+	else if (base == BASE_16)
+		return qi.binToHex(qi.getData());
+	return "";
+}
+
+//ham chuyen doi giua cac he co so (DANG DOI HAM 2->10, 16 -> 10)
 string baseConverter(const string& base1, const string& base2, string data) {
 	//truong hop base1 = base2 -> khong lam gi
 	if (base1 == base2) {
@@ -52,6 +66,7 @@ string baseConverter(const string& base1, const string& base2, string data) {
 		else
 			return qi.binToHex(qi.getData());		
 	}
+	//he 10 -> he khac
 	else if (base1 == BASE_10) {
 		//10 -> 2
 		if (base2 == BASE_2) 
@@ -60,6 +75,7 @@ string baseConverter(const string& base1, const string& base2, string data) {
 		else
 			return qi.decToHex();
 	}
+	//he 16 -> he khac
 	else if (base1 == BASE_16) {
 		//16 -> 2
 		if (base2 == BASE_2) 
@@ -70,6 +86,7 @@ string baseConverter(const string& base1, const string& base2, string data) {
 			return "";
 		}
 	}
+	
 	return "";
 }
 
@@ -79,10 +96,43 @@ string unaryOperatorsConverter(const string& base, const string& op) {
 	return result;
 }
 
-//ham tinh toan toan tu 2 ngoi +, -, *, /, >>, <<, &, |, ^ (DANG LAM)
+//ham tinh toan toan tu 2 ngoi +, -, *, /, >>, <<, &, |, ^ (DANG DOI CAC OPERATOR CON THIEU)
 string binaryOperatorsConverter(const string& base, const string& num1, const string& op, const string& num2) {
-	string result = "";
-	return result;
+	QInt result;
+	//case op la >> <<
+	if (op == "<<" || op == ">>") {
+		//chuyen num2 sang int
+		int k = 0;
+		stringstream strToInt(num2);
+		strToInt >> k;
+		//tinh toan
+		QInt qi(num1, base);
+		if (op == "<<")
+			result = qi << k;
+		else
+			result = qi >> k;
+	}
+	//cac truong hop con lai
+	else {
+		QInt a(num1, base), b(num2, base);
+		if (op == "+")
+			result = a + b;
+		else if (op == "-")
+			result = a - b;
+		else if (op == "*")
+			result = a * b;
+		else if (op == "/") { return ""; }
+			//result = a / b;
+		else if (op == "&") { return ""; }
+			//result = a & b;
+		else if (op == "|") { return ""; }
+			//result = a | b;
+		else if (op == "^") { return ""; }
+			//result = a ^ b;
+	}	
+	
+	// tra ket qua theo he so base
+	return qintToBase(result, base);
 }
 
 //ham xu ly chinh, se duoc viet lai o ham main sau
@@ -148,7 +198,9 @@ int main(int argc, char* argv[]) {
 	string input = "input.txt";
 	string output = "output.txt";
 	//mainProcess(input, output);
-	mainProcess(argv[1], argv[2]);
+	if (argc >= 3) {
+		mainProcess(argv[1], argv[2]);
+	}
 	system("pause");
 	return 0;
 }
