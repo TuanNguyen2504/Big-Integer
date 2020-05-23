@@ -229,7 +229,7 @@ string QInt::decToHex() {
 //operator=
 QInt& QInt::operator= (const QInt& qInt) {
 	this->_data = qInt._data;
-	return *this;
+	return (*this);
 }
 
 //phep dich trai k bits
@@ -281,15 +281,67 @@ QInt QInt::operator- (const QInt& a) {
 	return *this + temp;
 }
 
+//operator*
 QInt QInt::operator* (const QInt& a) {
+	//kiem tra bit cuoi cua a
+	//neu la 1 thi cong (*this) vao result, roi dich trai 1 bit (<< 1)
+	//neu la 0 thi chi dich trai 1 bit (<< 1), vi luc nay cong bit 0 vao result
 	QInt result;
-	for (int i = 0; i < N_BIT; ++i) {
-		if (a._data[i] == 1) {
+	for (int i = 0; i < a.getSize(); ++i) {
+		if (a._data[i] == 1) {	//kiem tra bit cuoi cua a		
 			result = result + (*this);
 		}
 		(*this) = (*this) << 1;
 	}
 	return result;
+}
+
+/*=== Cac toan tu AND(&) OR(|) XOR(^) NOT(~) ===*/
+//toan tu AND(&)
+QInt QInt::operator& (const QInt& a) {
+	QInt result;
+	for (int i = 0; i < a.getSize(); ++i) {
+		if (this->_data[i] == 1 && a._data[i] == 1)
+			result._data.set(i, 1);
+		else
+			result._data.set(i, 0);
+	}
+	return result;
+}
+
+//toan tu OR(|)
+QInt QInt::operator| (const QInt& a) {
+	QInt result;
+	for (int i = 0; i < a.getSize(); ++i) {
+		if (this->_data[i] == 0 && a._data[i] == 0)
+			result._data.set(i, 0);
+		else
+			result._data.set(i, 1);
+	}
+	return result;
+}
+
+//toan tu XOR(^)
+QInt QInt::operator^ (const QInt& a) {
+	QInt result;
+	for (int i = 0; i < a.getSize(); ++i) {
+		if (this->_data[i] == a._data[i])
+			result._data.set(i, 0);
+		else
+			result._data.set(i, 1);
+	}
+	return result;
+}
+
+//toan tu NOT(~)
+QInt QInt::operator~ () {
+	for (int i = 0; i < (*this).getSize(); ++i) {
+		if ((*this)._data[i] == 1)
+			(*this)._data[i] = 0;
+		else
+			(*this)._data[i] = 1;
+	}
+	return (*this);
 }
 
 //Ham huy

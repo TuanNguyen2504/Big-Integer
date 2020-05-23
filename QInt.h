@@ -52,6 +52,7 @@ public:
 	BITSET hexToBin(const string& hex);
 	//Ham chuyen chuoi so he QInt sang 16
 	string decToHex();
+
 	/* === Cac operator === */
 	//operator=
 	QInt& operator= (const QInt& qInt);
@@ -65,6 +66,16 @@ public:
 	QInt operator- (const QInt& a);
 	//operator*
 	QInt operator* (const QInt& a);
+
+	/* === Cac toan tu AND(&) OR(|) XOR(^) NOT(~) === */
+	//toan tu AND(&)
+	QInt operator& (const QInt& a);
+	//toan tu OR(|)
+	QInt operator| (const QInt& a);
+	//toan tu XOR(^)
+	QInt operator^ (const QInt& a);
+	//toan tu NOT(~)
+	QInt operator~ ();
 
 	/* === NHOM HAM HO TRO === */
 	// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
