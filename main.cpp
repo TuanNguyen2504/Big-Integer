@@ -90,10 +90,19 @@ string baseConverter(const string& base1, const string& base2, string data) {
 	return "";
 }
 
-//ham tinh toan toan tu 1 ngoi ~, ror, rol (DANG LAM)
-string unaryOperatorsConverter(const string& base, const string& op) {
-	string result = "";
-	return result;
+//ham tinh toan toan tu 1 ngoi ~, ror, rol (DANG DOI CAC OPERATOR)
+string unaryOperatorsConverter(const string& base, const string& op, const string& num) {
+	QInt qi(num, base);
+	if (op == ROL) {
+		//return qi.rol();
+	}
+	else if (op == ROR) {
+		//return qi.ror();
+	}
+	else if (op == "~") {
+		//return ~qi;
+	}
+	return "";
 }
 
 //ham tinh toan toan tu 2 ngoi +, -, *, /, >>, <<, &, |, ^ (DANG DOI CAC OPERATOR CON THIEU)
@@ -174,7 +183,7 @@ bool mainProcess(const string& input, const string& output) {
 			else {
 				//operator
 				string op = datas[1];
-				outputData = unaryOperatorsConverter(base, op);
+				outputData = unaryOperatorsConverter(base, op, data[2]);
 			}
 		}
 		//truong hop toan tu 2 ngoi +, -, *, /, >>, <<, OR, AND, XOR
