@@ -10,6 +10,11 @@ QInt::QInt(const QInt& qi){
 	this->_data = qi._data;
 }
 
+//ham tao tu chuoi bitset
+QInt::QInt(const BITSET& bits) {
+	this->_data = bits;
+}
+
 //khoi tao tu mot chuoi 2, 10, 16
 QInt::QInt(const string& data, const string& base) {
 	if (base == BASE_2) {
@@ -299,49 +304,30 @@ QInt QInt::operator* (const QInt& a) {
 /*=== Cac toan tu AND(&) OR(|) XOR(^) NOT(~) ===*/
 //toan tu AND(&)
 QInt QInt::operator& (const QInt& a) {
-	QInt result;
-	for (int i = 0; i < a.getSize(); ++i) {
-		if (this->_data[i] == 1 && a._data[i] == 1)
-			result._data.set(i, 1);
-		else
-			result._data.set(i, 0);
-	}
+	BITSET res = this->_data & a._data;
+	QInt result(res);
 	return result;
 }
 
 //toan tu OR(|)
 QInt QInt::operator| (const QInt& a) {
-	QInt result;
-	for (int i = 0; i < a.getSize(); ++i) {
-		if (this->_data[i] == 0 && a._data[i] == 0)
-			result._data.set(i, 0);
-		else
-			result._data.set(i, 1);
-	}
+	BITSET res = this->_data | a._data;
+	QInt result(res);
 	return result;
 }
 
 //toan tu XOR(^)
 QInt QInt::operator^ (const QInt& a) {
-	QInt result;
-	for (int i = 0; i < a.getSize(); ++i) {
-		if (this->_data[i] == a._data[i])
-			result._data.set(i, 0);
-		else
-			result._data.set(i, 1);
-	}
+	BITSET res = this->_data ^ a._data;
+	QInt result(res);
 	return result;
 }
 
 //toan tu NOT(~)
-QInt QInt::operator~ () {
-	for (int i = 0; i < (*this).getSize(); ++i) {
-		if ((*this)._data[i] == 1)
-			(*this)._data[i] = 0;
-		else
-			(*this)._data[i] = 1;
-	}
-	return (*this);
+QInt QInt::operator~ () const {
+	BITSET res = ~this->_data;
+	QInt result(res);
+	return result;
 }
 
 //Ham huy

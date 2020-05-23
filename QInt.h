@@ -15,7 +15,8 @@
 #define BASE_2 "2"
 #define BASE_10 "10"
 #define BASE_16 "16"
-
+#define ROL "rol"
+#define ROR "ror"
 using namespace std;
 
 class QInt
@@ -29,6 +30,8 @@ private:
 public:
 	/* === Cac ham khoi tao so QInt === */
 	QInt();
+	//ham tao tu chuoi bitset
+	QInt(const BITSET& bits);
 	//khoi tao tu mot chuoi 2, 10, 16
 	QInt(const string& bin, const string& base);
 	//ham tao sao chep
@@ -75,7 +78,7 @@ public:
 	//toan tu XOR(^)
 	QInt operator^ (const QInt& a);
 	//toan tu NOT(~)
-	QInt operator~ ();
+	QInt operator~ () const;
 
 	/* === NHOM HAM HO TRO === */
 	// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
