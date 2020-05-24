@@ -94,16 +94,17 @@ string baseConverter(const string& base1, const string& base2, string data) {
 //ham tinh toan toan tu 1 ngoi ~, ror, rol (DANG DOI CAC OPERATOR)
 string unaryOperatorsConverter(const string& base, const string& op, const string& num) {
 	QInt qi(num, base);
+	QInt result;
 	if (op == ROL) {
-		//return qi.rol();
+		result = qi.rol();
 	}
 	else if (op == ROR) {
-		//return qi.ror();
+		result = qi.ror();
 	}
 	else if (op == "~") {
-		return qintToBase(~qi, base);
+		result = ~qi;
 	}
-	return "";
+	return qintToBase(result, base);
 }
 
 //ham tinh toan toan tu 2 ngoi +, -, *, /, >>, <<, &, |, ^ (DANG DOI CAC OPERATOR CON THIEU /)
@@ -209,14 +210,6 @@ int main(int argc, char* argv[]) {
 	if (argc >= 3) {
 		mainProcess(argv[1], argv[2]);
 	}
-
-	QInt a;
-	cout << "Nhap a: ";
-	cin >> a;
-	cout << "a: " << a << endl;
-	cout << "rol: " << a.rol() << endl;
-	cout << "ror: " << a.ror() << endl;
-
 	system("pause");
 	return 0;
 }

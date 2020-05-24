@@ -338,21 +338,21 @@ QInt QInt::operator~ () const {
 
 //phep xoay trai 1 bit (chua xu ly tran so)
 QInt QInt::rol() {
-	QInt result;
-	result = (*this);
-
+	QInt result(*this);
+	//dich toan bo day bit sang trai
 	result = result << 1;
-
+	//bit trai nhat thanh bit phai nhat
+	result._data[0] = this->_data[N_BIT - 1];
 	return result;
 }
 
 //phep xoay phai 1 bit (chua xu ly tran so)
 QInt QInt::ror() {
-	QInt result;
-	result = (*this);
-
+	QInt result(*this);
+	//dich toan bo day bit sang phai
 	result = result >> 1;
-
+	//bit phai nhat thanh bit trai nhat
+	result._data[N_BIT - 1] = this->_data[0];
 	return result;
 }
 
