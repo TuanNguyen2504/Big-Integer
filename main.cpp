@@ -209,6 +209,14 @@ int main(int argc, char* argv[]) {
 	if (argc >= 3) {
 		mainProcess(argv[1], argv[2]);
 	}
+
+	QInt a;
+	cout << "Nhap a: ";
+	cin >> a;
+	cout << "a: " << a << endl;
+	cout << "rol: " << a.rol() << endl;
+	cout << "ror: " << a.ror() << endl;
+
 	system("pause");
 	return 0;
 }

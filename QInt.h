@@ -80,8 +80,14 @@ public:
 	//toan tu NOT(~)
 	QInt operator~ () const;
 
+	/* === Cac phep xoay bit === */
+	//phep xoay trai 1 bit (chua xu ly tran so)
+	QInt rol();
+	//phep xoay phai 1 bit (chua xu ly tran so)
+	QInt ror();
+
 	/* === NHOM HAM HO TRO === */
-	// ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
+	//ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
 	string reduceBitSet(const BITSET& bin);
 	//ham chia 1 chuoi cho 2
 	string divStrByTwo(const string& decInt);

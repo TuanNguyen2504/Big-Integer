@@ -54,9 +54,11 @@ ostream& operator<< (ostream& os, QInt myInt) {
 int QInt::getSize() const {
 	return this->_data.size();
 };
+
 BITSET QInt::getData() const {
 	return this->_data;
 }
+
 void QInt::setBit(const BITSET& bits) {
 	this->_data = bits;
 }
@@ -231,6 +233,7 @@ string QInt::decToHex() {
 }
 
 /* === Cac operator === */
+
 //operator=
 QInt& QInt::operator= (const QInt& qInt) {
 	this->_data = qInt._data;
@@ -302,6 +305,7 @@ QInt QInt::operator* (const QInt& a) {
 }
 
 /*=== Cac toan tu AND(&) OR(|) XOR(^) NOT(~) ===*/
+
 //toan tu AND(&)
 QInt QInt::operator& (const QInt& a) {
 	BITSET res = this->_data & a._data;
@@ -327,6 +331,28 @@ QInt QInt::operator^ (const QInt& a) {
 QInt QInt::operator~ () const {
 	BITSET res = ~this->_data;
 	QInt result(res);
+	return result;
+}
+
+/* === Cac phep xoay bit === */
+
+//phep xoay trai 1 bit (chua xu ly tran so)
+QInt QInt::rol() {
+	QInt result;
+	result = (*this);
+
+	result = result << 1;
+
+	return result;
+}
+
+//phep xoay phai 1 bit (chua xu ly tran so)
+QInt QInt::ror() {
+	QInt result;
+	result = (*this);
+
+	result = result >> 1;
+
 	return result;
 }
 
