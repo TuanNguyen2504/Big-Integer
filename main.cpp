@@ -91,7 +91,7 @@ string baseConverter(const string& base1, const string& base2, string data) {
 	return "";
 }
 
-//ham tinh toan toan tu 1 ngoi ~, ror, rol (DANG DOI CAC OPERATOR)
+//ham tinh toan toan tu 1 ngoi ~, ror, rol
 string unaryOperatorsConverter(const string& base, const string& op, const string& num) {
 	QInt qi(num, base);
 	QInt result;

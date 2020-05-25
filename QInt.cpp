@@ -233,7 +233,6 @@ string QInt::decToHex() {
 }
 
 /* === Cac operator === */
-
 //operator=
 QInt& QInt::operator= (const QInt& qInt) {
 	this->_data = qInt._data;
@@ -305,7 +304,6 @@ QInt QInt::operator* (const QInt& a) {
 }
 
 /*=== Cac toan tu AND(&) OR(|) XOR(^) NOT(~) ===*/
-
 //toan tu AND(&)
 QInt QInt::operator& (const QInt& a) {
 	BITSET res = this->_data & a._data;
