@@ -90,6 +90,28 @@ string QInt::divStrByTwo(const string& decInt) {
 	return result;
 }
 
+//ham nhan doi chuoi, ho tro ham binToDec
+string QInt::mulByTwo(string src, int add)
+{
+	string res = "";
+	int store = add;
+
+	for (int i = src.length() - 1; i >= 0; --i)
+	{
+		int temp = src[i] - '0';
+		temp = temp * 2 + store;
+		res += (temp % 10 + '0');
+		store = temp / 10;
+	}
+	if (store > 0)
+		res += (store + '0');
+
+	reverse(res.begin(), res.end());
+
+
+	return res;
+}
+
 // Ham chuyen nhi phan sang bu 2
 BITSET QInt::complementTwo(BITSET bin) {
 	//dao chuoi
@@ -230,6 +252,25 @@ BITSET QInt::hexToBin(const string& hex) {
 //Ham chuyen chuoi so he 10 sang 16
 string QInt::decToHex() {
 	return this->binToHex(this->_data);
+}
+
+//Ham chuyen doi he so 2 sang 10
+string QInt::binToDec(const BITSET& bin)
+{
+	string result = "";
+	// day bit da duoc rut gon
+	string binStr = QInt::reduceBitSet(bin);
+	// Tim vi tri bit 1 dau tien + 1
+	int pos = binStr.find('1', 0) + 1;
+	result = "1";
+	while (pos < binStr.length())
+	{
+		int add = binStr[pos] - '0';
+		result = mulByTwo(result, add);
+		pos++;
+	}
+
+	return result;
 }
 
 /* === Cac operator === */

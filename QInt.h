@@ -55,6 +55,8 @@ public:
 	BITSET hexToBin(const string& hex);
 	//Ham chuyen chuoi so he QInt sang 16
 	string decToHex();
+	//Ham chuyen doi he 2 sang 10
+	string binToDec(const BITSET& bin);
 
 	/* === Cac operator === */
 	//operator=
@@ -93,6 +95,8 @@ public:
 	string divStrByTwo(const string& decInt);
 	//ham chuyen day nhi phan sang bu 2
 	BITSET complementTwo(BITSET bin);
+	//ham nhan doi chuoi, ho tro ham binToDec
+	string mulByTwo(string src, int additive);
 
 	//ham huy
 	~QInt();
