@@ -91,13 +91,11 @@ string QInt::divStrByTwo(const string& decInt) {
 }
 
 //ham nhan doi chuoi, ho tro ham binToDec
-string QInt::mulByTwo(string src, int add)
-{
+string QInt::mulByTwo(string src, int add) {
 	string res = "";
 	int store = add;
 
-	for (int i = src.length() - 1; i >= 0; --i)
-	{
+	for (int i = src.length() - 1; i >= 0; --i) {
 		int temp = src[i] - '0';
 		temp = temp * 2 + store;
 		res += (temp % 10 + '0');
@@ -107,7 +105,6 @@ string QInt::mulByTwo(string src, int add)
 		res += (store + '0');
 
 	reverse(res.begin(), res.end());
-
 
 	return res;
 }
@@ -255,21 +252,48 @@ string QInt::decToHex() {
 }
 
 //Ham chuyen doi he so 2 sang 10
-string QInt::binToDec(const BITSET& bin)
-{
+string QInt::binToDec(const BITSET& bin) {
 	string result = "";
-	// day bit da duoc rut gon
-	string binStr = QInt::reduceBitSet(bin);
+	// Gan bin cho bien tam
+	BITSET bintemp;
+	for (int i = N_BIT - 1; i >= 0; --i)
+		bintemp[i] = bin[i];
+	bool negative = false;
+
+	// Neu day bit la so am thi dua ve so duong roi them dau vao sau
+	if (bin[N_BIT - 1] == 1) {
+		for (int i = 0; i < N_BIT - 1; ++i) {
+
+			if (bin[i] == 1) {
+				bintemp[i] = 0;
+				for (int j = i - 1; j >= 0; --j)
+					bintemp[j] = 1;
+				break;
+			}
+		}
+		bintemp.flip();
+		negative = true;
+	}
+
+	// Day bit da duoc rut gon
+	string binStr = QInt::reduceBitSet(bintemp);
+	// Neu day bit == "0" thi tra ket qua
+	if (binStr == "0") {
+		result = "0";
+		return result;
+	}
 	// Tim vi tri bit 1 dau tien + 1
 	int pos = binStr.find('1', 0) + 1;
 	result = "1";
-	while (pos < binStr.length())
-	{
+
+	while (pos < binStr.length()) {
 		int add = binStr[pos] - '0';
 		result = mulByTwo(result, add);
 		pos++;
 	}
 
+	if (negative)
+		result = "-" + result;
 	return result;
 }
 
