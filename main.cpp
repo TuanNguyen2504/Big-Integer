@@ -201,7 +201,7 @@ bool mainProcess(const string& input, const string& output) {
 	return 1;
 }
 
-//HAM MAIN()
+// HAM MAIN()
 int main(int argc, char* argv[]) {
 	if (argc >= 3) {
 		mainProcess(argv[1], argv[2]);
