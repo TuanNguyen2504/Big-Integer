@@ -108,4 +108,3 @@ public:
 
 #endif // !_QINT_
 
-

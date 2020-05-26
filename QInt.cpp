@@ -1,4 +1,4 @@
-#include "QInt.h"
+﻿#include "QInt.h"
 
 /* === Cac ham khoi tao so QInt === */
 QInt::QInt() {
@@ -375,40 +375,58 @@ QInt QInt::operator* (const QInt& a) {
 }
 
 //operator/
-QInt QInt::operator/ (const QInt& a) {	//chua hoan thien, van con bug =(((
+QInt QInt::operator/ (const QInt& a) {
 	//Restoring Division Algorithm
 
 	QInt quotient;		//thuong
 	QInt remainder;		//so du
+	bool check = false;
 
 	quotient = (*this);
 	int n = quotient._data.size();
 	int k = n;
 
-	//kiem tra quotient la am hay duong
-	if (quotient._data[N_BIT - 1] == 0)
-		remainder._data.reset();
-	else
-		remainder._data = decToBin("-1");
+	if (quotient._data[N_BIT - 1] == 1) {
+		//neu so am, chuyen tu so bu 2 -> day nhi phan ban dau
+		quotient = quotient - decToBin("1");
+		quotient = ~quotient;
+
+		check = true;
+	}
+
+	QInt b = a;		//su dung bien b de tranh thay doi bien a
+	if (b._data[N_BIT - 1] == 1) {
+		//neu so am, chuyen tu so bu 2 -> day nhi phan ban dau
+		b = b - decToBin("1");
+		b = ~b;
+
+		check = true;
+	}
 
 	while (k > 0) {
 		bool value = quotient._data[N_BIT - 1];
 
-		remainder << 1;
-		quotient << 1;
+		remainder = (remainder << 1);
+		quotient = (quotient << 1);
 
 		remainder._data[0] = value;
 
-		remainder = remainder - a;
+		remainder = remainder - b;
 		if (remainder._data[N_BIT - 1] == 1) {
 			quotient._data[0] = 0;
-			remainder = remainder + a;
+			remainder = remainder + b;
 		}
 		else {
 			quotient._data[0] = 1;
 		}
 		--k;
 	}
+
+	if (check == true) {
+		//chuyen doi ve dung dau cua gia tri ban dau
+		quotient._data = complementTwo(quotient._data);
+	}
+
 	return quotient;
 }
 

@@ -208,9 +208,9 @@ int main(int argc, char* argv[]) {
 	}
 
 	QInt a, b;
-	cout << "Nhap a: ";
+	cout << "Nhap a = ";
 	cin >> a;
-	cout << "Nhap b: ";
+	cout << "Nhap b = ";
 	cin >> b;
 	cout << "a / b = " << (a / b) << endl;
 
