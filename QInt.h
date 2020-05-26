@@ -57,6 +57,8 @@ public:
 	string decToHex();
 	//Ham chuyen doi he 2 sang 10
 	string binToDec(const BITSET& bin);
+	//Ham chuyen doi he 16 sang 10
+	string hexToDec(const string& hex);
 
 	/* === Cac operator === */
 	//operator=

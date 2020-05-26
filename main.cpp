@@ -28,25 +28,24 @@ vector<string> tokenData(const string& data) {
 	return result;
 }
 
-//ham chuyen doi QInt sang 1 he bat ky (dung de xuat so QInt ra 1 dinh dang base) (DANG DOI HAM 2->10)
+//ham chuyen doi QInt sang 1 he bat ky (dung de xuat so QInt ra 1 dinh dang base)
 string qintToBase(QInt qi, const string& base) {
 	if (base == BASE_2)
 		return qi.reduceBitSet(qi.getData());
 	else if (base == BASE_10) {
-		//return qi.binToDec();
-		return "";
+		return qi.binToDec(qi.getData());
 	}
 	else if (base == BASE_16)
 		return qi.binToHex(qi.getData());
 	return "";
 }
 
-//ham chuyen doi giua cac he co so (DANG DOI HAM 2->10, 16 -> 10)
+//ham chuyen doi giua cac he co so
 string baseConverter(const string& base1, const string& base2, string data) {
 	//truong hop base1 = base2 -> khong lam gi
 	if (base1 == base2) {
 		if (base1 == BASE_2) {
-			//xu ly case: 2->2 data = 0101 -> res: 101
+			//xu ly case: 2->2 data = 0101 -> result: 101
 			BITSET bin(data);
 			QInt qi;
 			return qi.reduceBitSet(bin);
@@ -58,10 +57,9 @@ string baseConverter(const string& base1, const string& base2, string data) {
 	QInt qi(data, base1);
 	//he 2 -> he khac
 	if (base1 == BASE_2) {
-		//2 -> 10 (chua co ham)
+		//2 -> 10
 		if (base2 == BASE_10) {
-			//return qi.binToDec();
-			return "";
+			return qi.binToDec(qi.getData());
 		}
 		// 2 -> 16
 		else
@@ -82,12 +80,11 @@ string baseConverter(const string& base1, const string& base2, string data) {
 		if (base2 == BASE_2) 
 			return qi.reduceBitSet(qi.hexToBin(data));
 		//16 -> 10 (chua co ham)
-		else {
-			//return qi.hexToDec(data);
-			return "";
-		}
+		else 
+			return qi.hexToDec(data);
 	}
 	
+	//truong hop k hop le
 	return "";
 }
 
@@ -206,7 +203,6 @@ bool mainProcess(const string& input, const string& output) {
 
 //HAM MAIN()
 int main(int argc, char* argv[]) {
-	//ae viet thang vao ham main <3
 	if (argc >= 3) {
 		mainProcess(argv[1], argv[2]);
 	}
