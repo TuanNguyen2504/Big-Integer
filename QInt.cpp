@@ -327,7 +327,7 @@ QInt QInt::operator>> (int k) const {
 	return result;
 }
 
-//operator +
+//operator+
 QInt QInt::operator+ (const QInt& a) {
 	QInt result;
 	bool bitSave = 0;
@@ -351,7 +351,7 @@ QInt QInt::operator+ (const QInt& a) {
 	return result;
 }
 
-//operator -
+//operator-
 QInt QInt::operator- (const QInt& a) {
 	QInt temp(a);
 	//doi dau cho a vd: 1 - 2 = 1 + (-2) hay 1 - (-2) = 1 + 2 
@@ -372,6 +372,44 @@ QInt QInt::operator* (const QInt& a) {
 		(*this) = (*this) << 1;
 	}
 	return result;
+}
+
+//operator/
+QInt QInt::operator/ (const QInt& a) {	//chua hoan thien, van con bug =(((
+	//Restoring Division Algorithm
+
+	QInt quotient;		//thuong
+	QInt remainder;		//so du
+
+	quotient = (*this);
+	int n = quotient._data.size();
+	int k = n;
+
+	//kiem tra quotient la am hay duong
+	if (quotient._data[N_BIT - 1] == 0)
+		remainder._data.reset();
+	else
+		remainder._data = decToBin("-1");
+
+	while (k > 0) {
+		bool value = quotient._data[N_BIT - 1];
+
+		remainder << 1;
+		quotient << 1;
+
+		remainder._data[0] = value;
+
+		remainder = remainder - a;
+		if (remainder._data[N_BIT - 1] == 1) {
+			quotient._data[0] = 0;
+			remainder = remainder + a;
+		}
+		else {
+			quotient._data[0] = 1;
+		}
+		--k;
+	}
+	return quotient;
 }
 
 /*=== Cac toan tu AND(&) OR(|) XOR(^) NOT(~) ===*/

@@ -73,6 +73,8 @@ public:
 	QInt operator- (const QInt& a);
 	//operator*
 	QInt operator* (const QInt& a);
+	//operator/
+	QInt operator/ (const QInt& a);
 
 	/* === Cac toan tu AND(&) OR(|) XOR(^) NOT(~) === */
 	//toan tu AND(&)

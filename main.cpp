@@ -206,6 +206,14 @@ int main(int argc, char* argv[]) {
 	if (argc >= 3) {
 		mainProcess(argv[1], argv[2]);
 	}
+
+	QInt a, b;
+	cout << "Nhap a: ";
+	cin >> a;
+	cout << "Nhap b: ";
+	cin >> b;
+	cout << "a / b = " << (a / b) << endl;
+
 	system("pause");
 	return 0;
 }
