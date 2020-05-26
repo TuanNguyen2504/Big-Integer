@@ -375,9 +375,10 @@ QInt QInt::operator* (const QInt& a) {
 }
 
 //operator/
-QInt QInt::operator/ (const QInt& a) {
+QInt QInt::operator/ (QInt a) {
 	//Restoring Division Algorithm
 
+	//chua xu ly truong hop chia cho 0
 	QInt quotient;		//thuong
 	QInt remainder;		//so du
 	bool check = false;
@@ -388,19 +389,16 @@ QInt QInt::operator/ (const QInt& a) {
 
 	if (quotient._data[N_BIT - 1] == 1) {
 		//neu so am, chuyen tu so bu 2 -> day nhi phan ban dau
-		quotient = quotient - decToBin("1");
-		quotient = ~quotient;
+		quotient._data = complementTwo(quotient._data);
 
-		check = true;
+		check = (!check);
 	}
 
-	QInt b = a;		//su dung bien b de tranh thay doi bien a
-	if (b._data[N_BIT - 1] == 1) {
+	if (a._data[N_BIT - 1] == 1) {
 		//neu so am, chuyen tu so bu 2 -> day nhi phan ban dau
-		b = b - decToBin("1");
-		b = ~b;
+		a._data = complementTwo(a._data);
 
-		check = true;
+		check = (!check);
 	}
 
 	while (k > 0) {
@@ -411,10 +409,10 @@ QInt QInt::operator/ (const QInt& a) {
 
 		remainder._data[0] = value;
 
-		remainder = remainder - b;
+		remainder = remainder - a;
 		if (remainder._data[N_BIT - 1] == 1) {
 			quotient._data[0] = 0;
-			remainder = remainder + b;
+			remainder = remainder + a;
 		}
 		else {
 			quotient._data[0] = 1;
@@ -423,7 +421,7 @@ QInt QInt::operator/ (const QInt& a) {
 	}
 
 	if (check == true) {
-		//chuyen doi ve dung dau cua gia tri ban dau
+		//neu (quotient < 0 va a < 0) hoac (quotient > 0 va a > 0) -> ko can doi dau
 		quotient._data = complementTwo(quotient._data);
 	}
 
