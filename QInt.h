@@ -93,8 +93,6 @@ public:
 	QInt ror();
 
 	/* === NHOM HAM HO TRO === */
-	//ham kiem tra co tran so hay khong
-	bool isOverflow(const string str);
 	//ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
 	string reduceBitSet(const BITSET& bin);
 	//ham chia 1 chuoi cho 2
