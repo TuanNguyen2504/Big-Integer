@@ -63,6 +63,11 @@ void QInt::setBit(const BITSET& bits) {
 }
 
 /* === NHOM HAM HO TRO === */
+//ham kiem tra co tran so hay khong (chuoi dau vao la 1 day bit, khong de kiem tra truc tiep ma kiem tra thong qua cac ham phat sinh Overflow) 
+bool QInt::isOverflow(const string str){
+	return (str.length() > N_BIT);
+}
+
 // ham rut gon chuoi bitset (vd: 0001010 -> 1010 )
 string QInt::reduceBitSet(const BITSET& bin) {
 	string bitsetToString = "";
