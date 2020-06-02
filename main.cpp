@@ -4,6 +4,9 @@
 #include <vector>
 #include <sstream>
 
+//gia tri tra ve mac dinh khi bi tran so, div/0, ngoai le khac
+#define RETURN_WHEN_OVERFLOWED ""
+
 using namespace std;
 
 //ham kiem tra ky tu phai he co so
@@ -37,7 +40,13 @@ string qintToBase(QInt qi, const string& base) {
 	}
 	else if (base == BASE_16)
 		return qi.binToHex(qi.getData());
-	return "";
+	return RETURN_WHEN_OVERFLOWED;
+}
+
+//ham kiem tra tran so
+bool isOverflowNumber(const QInt& num1, const string& op, const QInt& num2) {
+
+	return true;
 }
 
 //ham chuyen doi giua cac he co so
@@ -83,9 +92,9 @@ string baseConverter(const string& base1, const string& base2, string data) {
 		else 
 			return qi.hexToDec(data);
 	}
-	
+
 	//truong hop k hop le
-	return "";
+	return RETURN_WHEN_OVERFLOWED;
 }
 
 //ham tinh toan toan tu 1 ngoi ~, ror, rol
@@ -104,7 +113,7 @@ string unaryOperatorsConverter(const string& base, const string& op, const strin
 	return qintToBase(result, base);
 }
 
-//ham tinh toan toan tu 2 ngoi +, -, *, /, >>, <<, &, |, ^ (DANG DOI CAC OPERATOR CON THIEU /)
+//ham tinh toan toan tu 2 ngoi +, -, *, /, >>, <<, &, |, ^
 string binaryOperatorsConverter(const string& base, const string& num1, const string& op, const string& num2) {
 	QInt result;
 	//case op la >> <<
@@ -129,8 +138,12 @@ string binaryOperatorsConverter(const string& base, const string& num1, const st
 			result = a - b;
 		else if (op == "*")
 			result = a * b;
-		else if (op == "/") { return ""; }
-			//result = a / b;
+		else if (op == "/") {
+			//truong hop b = 0 -> div/0
+			if (b.getData() == 0)
+				return RETURN_WHEN_OVERFLOWED;
+			result = a / b;
+		}
 		else if (op == "&")
 			result = a & b;
 		else if (op == "|")
@@ -206,14 +219,11 @@ int main(int argc, char* argv[]) {
 	if (argc >= 3) {
 		mainProcess(argv[1], argv[2]);
 	}
-
-	QInt a, b;
-	cout << "Nhap a = ";
-	cin >> a;
-	cout << "Nhap b = ";
-	cin >> b;
-	cout << "a / b = " << (a / b) << endl;
-
+	BITSET a;
+	a.set();
+	a.set(N_BIT - 1, 0);
+	QInt b(a);
+	cout << b << endl;
 	system("pause");
 	return 0;
 }
