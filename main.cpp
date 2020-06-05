@@ -43,74 +43,6 @@ string qintToBase(QInt qi, const string& base) {
 	return RETURN_WHEN_OVERFLOWED;
 }
 
-//ham kiem tra tran so
-bool isOverflowNumber(const QInt& num1, const string& op, const QInt& num2) {
-
-	return true;
-}
-
-//ham phu giup kiem tra co OverFlow boi phep nhan
-bool IsOverbyMul(const QInt& num1, const QInt& num2) {
-	int Index1 = 0, Index2 = 0;
-	for (int i = N_BIT - 1; i >= 0; --i) {
-		if (num1.getData()[i] == 1)
-			Index1 = i + 1;
-	}
-	for (int i = N_BIT - 1; i >= 0; --i) {
-		if (num2.getData()[i] == 1)
-			Index2 = i + 1;
-	}
-	if (Index2 + Index1 + 1 > N_BIT) // So lan dich bit(num2) + chi so cao nhat cua bit 1(num1)
-		return true;
-	return false;
-}
-
-//ham kiem OverFlow cho toan tu 2 ngoi
-bool isOverflowNumber(const QInt& num1, const string& op, const QInt& num2) {
-	if (op == "+" || op == "-") {
-		int bitSave = 0;
-		for (int i = 0; i < N_BIT - 2; ++i) { // thuc hien cong de kiem tra
-			int sum = num1.getData()[i] + num2.getData()[i] + bitSave;
-			if (sum >= 2) {
-				bitSave = 1;
-			}
-			if ((num1.getData()[N_BIT - 2] + num2.getData()[N_BIT - 2] + bitSave) >= 2) //  vuot qua so bit luu tru
-				return true;
-		}
-	}
-	if (op == "*") {
-		QInt temp;
-		QInt Tnum1 = num1;
-
-		if (IsOverbyMul(num1, num2))
-			return true;
-		for (int i = 0; i < num2.getSize(); ++i) {
-			if (num2.getData()[i] == 1) {	//kiem tra bit cuoi cua a		
-				temp = temp + Tnum1;
-			}
-			Tnum1 = Tnum1 << 1;
-			if (IsOverbyMul(Tnum1, num2))
-				return true;
-		}
-
-	}
-	return false;
-}
-
-// Kiem tra OverFlow cho toan tu 1 ngoi
-bool isOverflowNumber(const QInt& num1, const string& op, const int k){
-	if (op == "<<") {
-		int temp = 0;
-		for (int i = N_BIT - 1; i >= 0; --i) {
-			if (num1.getData()[i] == 1)
-				temp = N_BIT - i - 1;
-		}
-		if (k > temp)
-			return true;
-	}
-	return false;
-}
-
 //ham chuyen doi giua cac he co so
 string baseConverter(const string& base1, const string& base2, string data) {
 	//truong hop base1 = base2 -> khong lam gi
@@ -270,7 +202,7 @@ bool mainProcess(const string& input, const string& output) {
 		if (outputData != "") ++count;
 		out << outputData << endl;
 	}
-	cout << "so cau da lam: " << count << endl;
+
 	in.close();
 	out.close();
 	return 1;
@@ -281,11 +213,6 @@ int main(int argc, char* argv[]) {
 	if (argc >= 3) {
 		mainProcess(argv[1], argv[2]);
 	}
-	BITSET a;
-	a.set();
-	a.set(N_BIT - 1, 0);
-	QInt b(a);
-	cout << b << endl;
 	system("pause");
 	return 0;
 }
